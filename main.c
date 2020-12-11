@@ -4,13 +4,14 @@
 #include <string.h>
 #include <stdlib.h>
 
-int main(int argc, char *argv[]){
-
-	int c;
-	int filenamesize;
+static void parse_args(int argc, char **argv){
+	int c, filenamesize;
 	char *filename;
 
 	if(argc >= 2){
+		/* argv[2] here assumed to be the input file.
+		 * later on some error checking, mutiple files, etc
+		 * will get added.  */
 		filenamesize = strlen(argv[1]);
 		filename = malloc(filenamesize * sizeof(char));
 		strcpy(filename, argv[1]);
@@ -30,6 +31,11 @@ int main(int argc, char *argv[]){
 	else{
 		printf("No file to compile provided\n");
 	}
+}
+
+int main(int argc, char *argv[]){
+	parse_args(argc, argv);
+
 
 
 
