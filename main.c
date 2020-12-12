@@ -1,11 +1,12 @@
 /* The compiler */
 
 #include "spheniscidaecc.h"
+	
+char *source;
 
-
-static void parse_args(int argc, char **argv){
-	int filenamesize;
-	char *filename, *source;
+static int parse_args(int argc, char **argv){
+	int filenamesize, parsed;
+	char *filename;
 	long lSize;
 
 	if(argc >= 2){
@@ -24,24 +25,31 @@ static void parse_args(int argc, char **argv){
 		rewind(source_fp);
 
 		source = calloc(1, lSize+1);
-		if(!source) fclose(source_fp), fputs("Memory alloc fails",
-				stderr), exit(1);
-		if(1 != fread(source, lSize, 1, source_fp))
-			fclose(source_fp), free(source), fputs("Read fails",
-					stderr), exit(1);
-		tokenize(source);
-
+		if(!source){
+		       	fclose(source_fp);
+			fputs("Memory alloc fails", stderr);
+		       	exit(1);
+		}
+		if(1 != fread(source, lSize, 1, source_fp)){
+			fclose(source_fp);
+			free(source);
+			fputs("Read fails", stderr);
+			exit(1);
+		}
 		fclose(source_fp);
-		free(source);
+		parsed = 1;
 	}
 	else{
 		printf("No file to compile provided\n");
+		parsed = 0;
 	}
+	return parsed;
 }
 
 int main(int argc, char *argv[]){
-	parse_args(argc, argv);
-
+	if(parse_args(argc, argv)){
+		tokenize(source);
+	}
 
 	return 0;
 }

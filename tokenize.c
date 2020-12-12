@@ -23,7 +23,7 @@ int is_space_char(char c){
 
 void tokenize(char *source){
 	char intoken = 1;
-	for (size_t i; i < strlen(source); i++){
+	for (size_t i = 0; i < strlen(source); i++){
 		if(is_space_char(source[i])){
 			intoken = 0;
 			printf("; ");
