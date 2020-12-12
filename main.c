@@ -1,8 +1,6 @@
 /* The compiler */
 
-#include <stdio.h>
-#include <string.h> // for strlen
-#include <stdlib.h>
+#include "spheniscidaecc.h"
 
 char *source_code;
 
