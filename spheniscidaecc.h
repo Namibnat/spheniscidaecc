@@ -8,3 +8,9 @@
 void tokenize(char *source);
 						
 #define MAX_VAR_LENGTH 31
+
+typedef struct TOKEN {
+	char identifier[32];
+};
+
+TOKEN *tokstream;
