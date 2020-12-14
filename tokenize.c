@@ -1,24 +1,12 @@
 #include "spheniscidaecc.h"
 
-#define ISSPACE 1
-#define ISNOTSPACE 0
-
 char *source_code;
 
-int is_space_char(char c){
-	switch(c){
-		case ' ':
-			return ISSPACE;
-			break;
-		case '\n':
-			return ISSPACE;
-			break;
-		case '\t':
-			return ISSPACE;
-			break;
-		default:
-			return ISNOTSPACE;
-	}
+// static bool startwith...
+// Note: I got this from chibicc
+//       https://github.com/rui314/chibicc
+static bool startswith(char *source, char *cmp_str){
+	return strncmp(source, cmp_str, strlen(cmp_str)) == 0;
 }
 
 void tokenize(char *source){
@@ -29,16 +17,15 @@ void tokenize(char *source){
 	 * 	look for the c words we know, such as main, int, return
 	 * 	find semicolons
 	 */
-	char intoken = 1;
-	for (size_t i = 0; i < strlen(source); i++){
-		if(is_space_char(source[i])){
-			intoken = 0;
-			printf("; ");
+	while(*source){
+		if(startswith(source, "main")){
+			printf("<main>\n");
+			while(!startswith(source, "(")){
+				source++;
+			continue;
+			}
 		}
-		else{
-			intoken = 1;
-			putchar(source[i]);
-		}
+		source++;
 	}
 	printf("\n");
 }
