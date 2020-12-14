@@ -6,3 +6,5 @@
 #include <ctype.h>    // for isdigit
 
 void tokenize(char *source);
+						
+#define MAX_VAR_LENGTH 31

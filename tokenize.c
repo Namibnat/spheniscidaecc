@@ -1,6 +1,8 @@
 #include "spheniscidaecc.h"
 
 char *source_code;
+int counter = 0;
+char tmp_name[32];
 
 // static bool startwith...
 // Note: I got this from chibicc
@@ -9,28 +11,35 @@ static bool startswith(char *source, char *cmp_str){
 	return strncmp(source, cmp_str, strlen(cmp_str)) == 0;
 }
 
+static bool is_viable_first_char(char c){
+	return ((c >= 'A' && c <= 'Z')
+			|| (c >= 'a' && c <= 'z')
+			|| (c == '_'));
+}
+
+static bool is_viable_variable_char(char c){
+	return ((is_viable_first_char(c))
+			|| isdigit(c));
+}
+
 void tokenize(char *source){
-	/* What are some initial things we're looking for:
-	 * 	Skip spaces
-	 * 	find combinations of letters, etc, that could be c
-	 * 	find numbers
-	 * 	look for the c words we know, such as main, int, return
-	 * 	find semicolons
-	 */
+							
+	char *max_var_len_error = "Variable must be less than 31 characters\n";
+
 	while(*source){
-		if(startswith(source, "int")){
-			printf("<int>\n");
-			source = source + strlen("int");
-			continue;
-		}
-		if(startswith(source, "main")){
-			printf("<main>\n");
-			source = source + strlen("main");
-			continue;
-		}
-		if(startswith(source, "return")){
-			printf("<return>\n");
-			source = source + strlen("return");
+		if(is_viable_first_char(source[0])){
+			while (is_viable_variable_char(source[0])){
+				printf("%c", source[0]);
+				source++;
+				counter++;
+				if (counter > MAX_VAR_LENGTH){
+					// 31 characters long:
+					// ............................... 
+					fputs(max_var_len_error, stderr);
+					exit(1);
+				}
+			}
+			printf("\n");
 			continue;
 		}
 		if(startswith(source, ";")){
