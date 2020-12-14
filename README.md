@@ -26,9 +26,9 @@ work ahead.
 ## Name
 
 Spheniscidae is the family to which penguins belong.  I like penguins,
-they are a hint at the fact that this is built on Linux (Manjaro in my case),
-a hint to my love of nature, and, well, penguins are sort of funny and 
+they are a hint at the fact that this is built on Linux ([Manjaro](https://manjaro.org/)
+in my case), a hint to my love of nature, and, well, penguins are sort of funny and 
 might wobble a bit...a bit like my compiler.  DON'T USE THIS COMPILER
 FOR ANYTHING OTHER THAN MESSING AROUND.
 
-the 'cc' at the end stands for C compiler, of course.
+The 'cc' at the end stands for C compiler, of course.
