@@ -4,12 +4,12 @@
 	
 char *source;
 
-static int parse_args(int argc, char **argv){
+static int parse_args(int argc, char **argv) {
 	int filenamesize, parsed;
 	char *filename;
 	long lSize;
 
-	if(argc >= 2){
+	if(argc >= 2) {
 		/* argv[2] here assumed to be the input file.
 		 * later on some error checking, mutiple files, etc
 		 * will get added. 
@@ -31,12 +31,12 @@ static int parse_args(int argc, char **argv){
 		rewind(source_fp);
 
 		source = calloc(1, lSize+1);
-		if(!source){
+		if(!source) {
 		       	fclose(source_fp);
 			fputs("Memory allocation failed", stderr);
 		       	exit(1);
 		}
-		if(1 != fread(source, lSize, 1, source_fp)){
+		if(1 != fread(source, lSize, 1, source_fp)) {
 			fclose(source_fp);
 			free(source);
 			fputs("Read fails", stderr);
@@ -45,15 +45,15 @@ static int parse_args(int argc, char **argv){
 		fclose(source_fp);
 		parsed = 1;
 	}
-	else{
+	else {
 		printf("No file to compile provided\n");
 		parsed = 0;
 	}
 	return parsed;
 }
 
-int main(int argc, char *argv[]){
-	if(parse_args(argc, argv)){
+int main(int argc, char *argv[]) {
+	if(parse_args(argc, argv)) {
 		tokenize(source);
 	}
 
