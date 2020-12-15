@@ -9,7 +9,8 @@ void tokenize(char *source);
 						
 #define MAX_VAR_LENGTH 31
 
-typedef struct TOKEN {
+typedef struct TOKEN TOKEN;
+struct TOKEN {
 	char identifier[32];
 };
 
