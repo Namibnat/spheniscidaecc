@@ -5,6 +5,11 @@
 #include <stdbool.h>  // for bool, used in tokenize
 #include <ctype.h>    // for isdigit
 
+/*
+ * tokenize.c
+ */
+
+
 void tokenize(char *source);
 						
 #define MAX_VAR_LENGTH 31
@@ -14,4 +19,5 @@ struct TOKEN {
 	char identifier[32];
 };
 
-TOKEN *tokstream;
+/* TOKEN *tokstream; */
+

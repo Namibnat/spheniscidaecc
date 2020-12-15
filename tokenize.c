@@ -4,7 +4,7 @@ char *source_code;
 int counter = 0;
 char tmp_name[32];
 
-// static bool startwith...
+// static bool startswith...
 // Note: I got this from chibicc
 //       https://github.com/rui314/chibicc
 static bool startswith(char *source, char *cmp_str) {
@@ -25,8 +25,31 @@ static bool is_viable_variable_char(char c) {
 void tokenize(char *source) {
 							
 	char *max_var_len_error = "Variable must be less than 31 characters\n";
+	char *cdatatypes[] = {"char", "int", "float", "double",
+		"short int", "long int", "long double"};
+	int got;
 
 	while(*source) {
+		got = 0;
+		/* reserved words in C that we want to deal with:
+		 * 	_Bool, _Complex, _Imaginary, auto, break, case, char, const,
+		 * 	continue, default, do, double, else, enum, extern, float, 
+		 * 	for, goto, if, inline, int, long, register, restrict, 
+		 * 	return, short, signed, sizeof, static, struct, switch,
+		 * 	typedef, union, unsigned, void, volatile, while */
+
+		/* check data types */
+		for(int i = 0; i < 7; i++){
+			if(startswith(source, cdatatypes[i])) {
+				printf("<%s>: type: datatype\n", cdatatypes[i]);
+				source = source + strlen(cdatatypes[i]);
+				got++;
+				break;
+			}
+		}
+		if(got){
+			continue;
+		}
 		if(is_viable_first_char(source[0])) {
 			while (is_viable_variable_char(source[0])) {
 				printf("%c", source[0]);
