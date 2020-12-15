@@ -24,5 +24,5 @@ struct TOKEN {
 	TokenKind kind;
 };
 
-TOKEN *tokstream;
+// TOKEN *tokstream;
 
