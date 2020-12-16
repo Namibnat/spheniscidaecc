@@ -28,6 +28,7 @@ void tokenize(char *source) {
 	char *cdatatypes[] = {"char", "int", "float", "double",
 		"short int", "long int", "long double"};
 	int got;
+	extern int token_counter;
 
 	while(*source) {
 		got = 0;
@@ -48,6 +49,7 @@ void tokenize(char *source) {
 			}
 		}
 		if(got){
+			token_counter++;
 			continue;
 		}
 		if(is_viable_first_char(source[0])) {
@@ -63,31 +65,37 @@ void tokenize(char *source) {
 				}
 			}
 			printf("\n");
+			token_counter++;
 			continue;
 		}
 		if(startswith(source, ";")) {
 			printf("<;>\n");
 			source++;
+			token_counter++;
 			continue;
 		}
 		if(startswith(source, "(")) {
 			printf("<(>\n");
 			source++;
+			token_counter++;
 			continue;
 		}
 		if(startswith(source, ")")) {
 			printf("<)>\n");
 			source++;
+			token_counter++;
 			continue;
 		}
 		if(startswith(source, "}")) {
 			printf("<}>\n");
 			source++;
+			token_counter++;
 			continue;
 		}
 		if(startswith(source, "{")) {
 			printf("<{>\n");
 			source++;
+			token_counter++;
 			continue;
 		}
 		if(isdigit(source[0])) {
@@ -97,6 +105,7 @@ void tokenize(char *source) {
 				source++;
 			}
 			printf(">\n");
+			token_counter++;
 			continue;
 		}
 

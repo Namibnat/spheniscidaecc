@@ -3,6 +3,7 @@
 #include "spheniscidaecc.h"
 	
 char *source;
+int token_counter = 0;
 
 static int parse_args(int argc, char **argv) {
 	int filenamesize, parsed;
@@ -52,10 +53,18 @@ static int parse_args(int argc, char **argv) {
 	return parsed;
 }
 
+static void free_tokens(){
+	/* Note, here we'll use the token counter to free
+	 * tokens.  Note, first free the char, then the token
+	 * itself */
+	printf("We ended up with %d tokens\n", token_counter);
+}
+
 int main(int argc, char *argv[]) {
 	if(parse_args(argc, argv)) {
 		tokenize(source);
 	}
+	free_tokens();
 
 	return 0;
 }
