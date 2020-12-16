@@ -9,7 +9,7 @@
  * tokenize.c
  */
 
-void tokenize(char *source);
+void tokenize();
 						
 #define MAX_VAR_LENGTH 31
 

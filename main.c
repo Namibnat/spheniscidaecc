@@ -3,10 +3,11 @@
 #include "spheniscidaecc.h"
 	
 char *source;
-int token_counter = 0;
+int token_counter;
 
-static int parse_args(int argc, char **argv) {
-	int filenamesize, parsed;
+static void parse_args(int argc, char **argv) {
+
+	int filenamesize;
 	char *filename;
 	long lSize;
 
@@ -44,13 +45,11 @@ static int parse_args(int argc, char **argv) {
 			exit(1);
 		}
 		fclose(source_fp);
-		parsed = 1;
 	}
 	else {
 		printf("No file to compile provided\n");
-		parsed = 0;
+		exit(0);
 	}
-	return parsed;
 }
 
 static void free_tokens(){
@@ -61,9 +60,9 @@ static void free_tokens(){
 }
 
 int main(int argc, char *argv[]) {
-	if(parse_args(argc, argv)) {
-		tokenize(source);
-	}
+			
+	parse_args(argc, argv);
+	tokenize();
 	free_tokens();
 
 	return 0;

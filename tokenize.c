@@ -22,13 +22,15 @@ static bool is_viable_variable_char(char c) {
 			|| isdigit(c));
 }
 
-void tokenize(char *source) {
+void tokenize(){
+	extern char *source;
+	extern int token_counter;
+	token_counter = 0;
 							
 	char *max_var_len_error = "Variable must be less than 31 characters\n";
 	char *cdatatypes[] = {"char", "int", "float", "double",
 		"short int", "long int", "long double"};
 	int got;
-	extern int token_counter;
 
 	while(*source) {
 		got = 0;
