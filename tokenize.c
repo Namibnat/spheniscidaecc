@@ -4,8 +4,9 @@ char *source_code;
 int counter = 0;
 char tmp_name[32];
 
-// static bool startswith...
-// Note: I got this from chibicc
+extern Token *tokstream;
+
+// static bool startswith... - I got this from chibicc
 //       https://github.com/rui314/chibicc
 static bool startswith(char *source, char *cmp_str) {
 	return strncmp(source, cmp_str, strlen(cmp_str)) == 0;
@@ -22,6 +23,24 @@ static bool is_viable_variable_char(char c) {
 			|| isdigit(c));
 }
 
+static void addtoken(int token_num, char *identifier, TokenKind kind){
+	/*
+	typedef enum {
+		TK_DTYPE, // c datatype
+		TK_OTHER, // placeholder for now
+	} TokenKind;
+
+	typedef struct Token Token;
+	struct Token {
+		int token_num;
+		char identifier[32];
+		TokenKind kind;
+	};
+	 * */
+	// Token* tokenstream = 
+	printf("Token %d, %s\n", token_num, identifier);
+}
+
 void tokenize(){
 	extern char *source;
 	extern int token_counter;
@@ -30,7 +49,7 @@ void tokenize(){
 	char *max_var_len_error = "Variable must be less than 31 characters\n";
 	char *cdatatypes[] = {"char", "int", "float", "double",
 		"short int", "long int", "long double"};
-	int got;
+	int got, i;
 
 	while(*source) {
 		got = 0;
@@ -42,7 +61,8 @@ void tokenize(){
 		 * 	typedef, union, unsigned, void, volatile, while */
 
 		/* check data types */
-		for(int i = 0; i < 7; i++){
+		i = 0;
+		for(; i < 7; i++){
 			if(startswith(source, cdatatypes[i])) {
 				printf("<%s>: type: datatype\n", cdatatypes[i]);
 				source = source + strlen(cdatatypes[i]);
@@ -51,6 +71,7 @@ void tokenize(){
 			}
 		}
 		if(got){
+			addtoken(token_counter, cdatatypes[i], TK_DTYPE);
 			token_counter++;
 			continue;
 		}

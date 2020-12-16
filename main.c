@@ -3,6 +3,7 @@
 #include "spheniscidaecc.h"
 	
 char *source;
+Token *tokstream;
 int token_counter;
 
 static void parse_args(int argc, char **argv) {
@@ -47,8 +48,8 @@ static void parse_args(int argc, char **argv) {
 		fclose(source_fp);
 	}
 	else {
-		printf("No file to compile provided\n");
-		exit(0);
+		fputs("No file to compile provided\n", stderr);
+		exit(1);
 	}
 }
 

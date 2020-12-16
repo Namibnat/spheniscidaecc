@@ -18,11 +18,10 @@ typedef enum {
 	TK_OTHER, // placeholder for now
 } TokenKind;
 
-typedef struct TOKEN TOKEN;
-struct TOKEN {
+typedef struct Token Token;
+struct Token {
+	int token_num;
 	char identifier[32];
 	TokenKind kind;
 };
-
-// TOKEN *tokstream;
 
