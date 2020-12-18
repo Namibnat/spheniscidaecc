@@ -23,5 +23,6 @@ struct Token {
 	int token_num;
 	char identifier[32];
 	TokenKind kind;
+	size_t used;
 };
 

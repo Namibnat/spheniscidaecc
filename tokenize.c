@@ -23,7 +23,7 @@ static bool is_viable_variable_char(char c) {
 			|| isdigit(c));
 }
 
-static void addtoken(int token_num, char *identifier, TokenKind kind){
+static void addtoken(int tn, char *id, TokenKind k, size_t used){
 	/*
 	typedef enum {
 		TK_DTYPE, // c datatype
@@ -35,10 +35,11 @@ static void addtoken(int token_num, char *identifier, TokenKind kind){
 		int token_num;
 		char identifier[32];
 		TokenKind kind;
+		size_t used;
 	};
 	 * */
 	// Token* tokenstream = 
-	printf("Token %d, %s\n", token_num, identifier);
+	printf("Token %d, %s\n", tn, id);
 }
 
 void tokenize(){
@@ -71,7 +72,7 @@ void tokenize(){
 			}
 		}
 		if(got){
-			addtoken(token_counter, cdatatypes[i], TK_DTYPE);
+			addtoken(token_counter, cdatatypes[i], TK_DTYPE, 0);
 			token_counter++;
 			continue;
 		}
